@@ -1,5 +1,5 @@
 const CACHE_NAME = 'tripitaka-v4';
-const BASE = '/tripitaka-pwa/';
+const BASE = '/tripitaka-timeline-pwa/';
 const urlsToCache = [BASE, BASE + 'index.html', BASE + 'manifest.json'];
 
 // Install: cache files + activate immediately
