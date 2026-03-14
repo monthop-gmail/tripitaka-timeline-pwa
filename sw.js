@@ -1,6 +1,6 @@
-const CACHE_NAME = 'tripitaka-v2';
+const CACHE_NAME = 'tripitaka-v3';
 const BASE = '/tripitaka-pwa/';
-const urlsToCache = [BASE, BASE + 'index.html', BASE + 'manifest.json', BASE + 'timeline.html'];
+const urlsToCache = [BASE, BASE + 'index.html', BASE + 'manifest.json'];
 
 self.addEventListener('install', event => {
   event.waitUntil(

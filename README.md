@@ -1,26 +1,29 @@
-# พระไตรปิฏก - Tripitaka PWA
+# พระไตรปิฎกสามสาย · Timeline
 
-Progressive Web App สำหรับอ่านพระไตรปิฏก สังคายนา และพระสูตร
+Visual timeline แสดงเหตุการณ์สำคัญของพระไตรปิฎก 3 สาย ตลอด 2,600 ปี
 
-## Features
-
-- รองรับการใช้งานแบบ PWA (ติดตั้งบนมือถือได้)
-- ใช้งานแบบ Offline ได้
-- รองรับภาษาไทย
+- เถรวาท (บาลี)
+- มหายาน (จีน)
+- วัชรยาน (ทิเบต)
 
 ## Demo
 
 https://monthop-gmail.github.io/tripitaka-pwa/
 
+## Features
+
+- Timeline แบบ interactive · hover ดูรายละเอียดแต่ละเหตุการณ์
+- ครอบคลุม 14 เหตุการณ์สำคัญ ตั้งแต่พุทธกาลถึงยุคปัจจุบัน
+- รองรับ PWA (ติดตั้งบนมือถือได้ / Offline)
+
 ## Tech Stack
 
 - HTML / CSS / JavaScript (Vanilla)
+- Inter font + Font Awesome icons
 - Service Worker สำหรับ Offline Support
 - GitHub Pages สำหรับ Hosting
 
 ## Development
-
-เปิดไฟล์ `index.html` ในเบราว์เซอร์ได้เลย หรือใช้ local server:
 
 ```bash
 npx serve .

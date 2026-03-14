@@ -1,339 +1,442 @@
 <!DOCTYPE html>
-<html lang="th">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>พระไตรปิฏก - Tripitaka PWA</title>
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#f59e0b">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📿</text></svg>">
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: 'Sarabun', 'Noto Sans TH', sans-serif;
-      background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
-      min-height: 100vh;
-      padding: 20px;
-    }
-    .container { max-width: 600px; margin: 0 auto; }
-    h1 {
-      text-align: center;
-      color: #92400e;
-      margin-bottom: 8px;
-      font-size: 1.8rem;
-    }
-    .subtitle {
-      text-align: center;
-      color: #b45309;
-      margin-bottom: 20px;
-      font-size: 0.9rem;
-    }
-    .breadcrumb {
-      background: white;
-      padding: 10px 15px;
-      border-radius: 8px;
-      margin-bottom: 15px;
-      font-size: 0.85rem;
-      color: #666;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-    .breadcrumb span { color: #d97706; cursor: pointer; }
-    .breadcrumb span:hover { text-decoration: underline; }
-    .card {
-      background: white;
-      border-radius: 12px;
-      padding: 16px;
-      margin-bottom: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    }
-    .card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .card h3 { color: #92400e; font-size: 1.1rem; }
-    .card .count {
-      background: #f59e0b;
-      color: white;
-      padding: 4px 10px;
-      border-radius: 20px;
-      font-size: 0.8rem;
-    }
-    .card p { color: #666; font-size: 0.9rem; margin-top: 8px; }
-    .details {
-      margin-top: 12px;
-      padding-top: 12px;
-      border-top: 1px solid #e5e7eb;
-    }
-    .detail-item {
-      padding: 8px 0;
-      border-bottom: 1px dashed #e5e7eb;
-    }
-    .detail-item:last-child { border-bottom: none; }
-    .detail-item strong { color: #b45309; }
-    .icon { margin-right: 8px; }
-    .back-btn {
-      display: inline-block;
-      background: #f59e0b;
-      color: white;
-      padding: 8px 16px;
-      border-radius: 8px;
-      cursor: pointer;
-      margin-bottom: 15px;
-      font-size: 0.9rem;
-    }
-    .back-btn:hover { background: #d97706; }
-    .hidden { display: none; }
-  </style>
-  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📜 พระไตรปิฎกสามสาย · Timeline</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#b87c4b">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background: #f7f2e9;
+            background-image: linear-gradient(145deg, #f0e7db 0%, #faf5ec 100%);
+            font-family: 'Inter', sans-serif;
+            padding: 2rem 1.5rem;
+            color: #2f2a22;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .header {
+            margin-bottom: 2rem;
+        }
+        .header h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            background: linear-gradient(165deg, #6b4f35, #a07d5a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            border-left: 8px solid #b87c4b;
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .subtitle {
+            font-size: 1.2rem;
+            color: #7a6248;
+            margin-left: 2.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .subtitle i {
+            color: #bb7e51;
+        }
+        .nav-link {
+            display: inline-block;
+            margin-left: 2.2rem;
+            margin-top: 0.8rem;
+            background: #f59e0b;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+        .nav-link:hover { background: #d97706; }
+
+        /* Legend */
+        .legend-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem 3rem;
+            background: #f3e9dd;
+            padding: 1.2rem 2rem;
+            border-radius: 60px;
+            margin: 1.8rem 0 2rem;
+            border: 1px solid #dfcbb2;
+            justify-content: center;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 500;
+        }
+        .legend-dot {
+            width: 22px;
+            height: 22px;
+            border-radius: 10px;
+        }
+        .early-dot { background: #8b6c4d; }
+        .thera-dot { background: #2f6b5e; }
+        .maha-dot { background: #b35d3a; }
+        .tibet-dot { background: #3f6a9c; }
+
+        /* Timeline paper */
+        .timeline-card {
+            background: #fffcf6;
+            border-radius: 3rem 3rem 2rem 2rem;
+            box-shadow: 0 30px 50px -20px rgba(70, 40, 20, 0.4), 0 0 0 1px #e3d1bb inset;
+            padding: 2rem 2rem 1.5rem 2rem;
+            backdrop-filter: blur(2px);
+            margin-bottom: 2.5rem;
+        }
+
+        .ruler-container {
+            position: relative;
+            width: 100%;
+            height: 48px;
+            margin-bottom: 2rem;
+            border-bottom: 3px solid #cfbc9f;
+        }
+        .ruler-years {
+            display: flex;
+            position: absolute;
+            width: 100%;
+            top: 0;
+            left: 0;
+            height: 100%;
+        }
+        .year-tick {
+            flex: 1;
+            position: relative;
+            border-left: 1px dashed #c2ab8a;
+            height: 18px;
+            top: 26px;
+        }
+        .year-tick::after {
+            content: attr(data-label);
+            position: absolute;
+            top: -24px;
+            left: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            background: #f0e2d1;
+            padding: 4px 8px;
+            border-radius: 40px;
+            white-space: nowrap;
+            color: #5f4a32;
+            border: 1px solid #dabd98;
+        }
+        .bc-label {
+            position: absolute;
+            left: 4px;
+            top: -12px;
+            background: #8b775b;
+            color: #fcf3e4;
+            padding: 4px 12px;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            z-index: 5;
+        }
+
+        /* event rows */
+        .event-row {
+            display: flex;
+            margin-bottom: 24px;
+            align-items: flex-start;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .row-label {
+            width: 100px;
+            font-weight: 600;
+            font-size: 1rem;
+            padding-top: 8px;
+            color: #3f3324;
+            display: flex;
+            gap: 8px;
+        }
+        .track {
+            flex: 1;
+            background: #e9dfd0;
+            height: 56px;
+            border-radius: 40px;
+            position: relative;
+            box-shadow: inset 0 2px 6px #bbaa95;
+            min-width: 300px;
+        }
+
+        .event-marker {
+            position: absolute;
+            height: 46px;
+            top: 5px;
+            border-radius: 40px;
+            background: #ad8d6b;
+            transition: 0.1s;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+            cursor: help;
+            min-width: 10px;
+            border: 1px solid rgba(255, 255, 240, 0.35);
+        }
+        .early-marker { background: #8b6c4d; }
+        .thera-marker { background: #2f6b5e; }
+        .maha-marker { background: #b35d3a; }
+        .tibet-marker { background: #3f6a9c; }
+
+        .tooltip {
+            visibility: hidden;
+            opacity: 0;
+            background: #2d241b;
+            color: #fff9ee;
+            padding: 8px 18px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 400;
+            line-height: 1.5;
+            white-space: nowrap;
+            position: absolute;
+            bottom: 58px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 12px 28px black;
+            transition: 0.15s;
+            z-index: 100;
+            border: 1px solid #caa87b;
+            pointer-events: none;
+        }
+        .tooltip i {
+            margin-right: 6px;
+            color: #f3bc7b;
+        }
+        .tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -6px;
+            border-width: 7px;
+            border-style: solid;
+            border-color: #2d241b transparent transparent transparent;
+        }
+        .event-marker:hover .tooltip {
+            visibility: visible;
+            opacity: 1;
+            bottom: 62px;
+        }
+
+        .info-panel {
+            background: #efe5d7;
+            border-radius: 2.2rem;
+            padding: 1.8rem 2.2rem;
+            margin: 2.2rem 0 1.5rem;
+            border-left: 10px solid #b35d3a;
+            box-shadow: 0 8px 18px #dac2a8;
+        }
+        .info-panel h3 {
+            font-size: 1.8rem;
+            font-weight: 650;
+            color: #462f1b;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .pill-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 1rem 0;
+        }
+        .pill {
+            background: #fff9ee;
+            border: 1px solid #b47d52;
+            padding: 8px 24px;
+            border-radius: 60px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #3d2d1a;
+        }
+        .pill i {
+            color: #b26224;
+            margin-right: 8px;
+        }
+        .event-table-note {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 14px;
+            background: #fffcf2;
+            padding: 2rem;
+            border-radius: 2rem;
+            margin-top: 2rem;
+            border: 1px solid #e4cfb2;
+        }
+        .event-card-mini {
+            background: #f5ede2;
+            padding: 10px 16px;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            border-left: 6px solid;
+            box-shadow: 0 2px 6px #e2d0ba;
+        }
+        .footer-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+            color: #8e7557;
+            font-size: 0.9rem;
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <h1>📿 พระไตรปิฏก</h1>
-    <p class="subtitle">สังคยานา และพระสูตร</p>
-    
-    <div id="breadcrumb" class="breadcrumb hidden">
-      <span onclick="goHome()">หน้าหลัก</span> <span id="breadcrumb-text"></span>
+<div class="container">
+    <div class="header">
+        <h1>📘 พระไตรปิฎกสามสาย · ฉบับข้อมูลสมบูรณ์</h1>
+        <div class="subtitle"><i class="fas fa-timeline"></i> ทุกเหตุการณ์จากตารางหลัก · เถรวาท มหายาน วัชรยาน</div>
     </div>
-    
-    <div id="content"></div>
-  </div>
 
-  <script>
-    const data = {
-      councils: [
-        {
-          id: 1,
-          name: 'ปฐมสังคยานา',
-          year: '400 ก่อนพ.ศ.',
-          location: 'เมืองราชคฤห์',
-          participants: 'พระอรหันต์ 500 รูป',
-          nikayas: [
-            { name: 'ทีฆนิกาย', thai: 'Digha Nikaya', count: 34, desc: 'สูตรยาว ธรรมะเชิงลึก' },
-            { name: 'มัชฌิมนิกาย', thai: 'Majjhima Nikaya', count: 152, desc: 'สูตรกลาง สอนปฏิบัติ' },
-            { name: 'สังยุตตนิกาย', thai: 'Samyutta Nikaya', count: 2889, desc: 'พระสูตรจัดหมวดหมู่' },
-            { name: 'อังคุตตรนิกาย', thai: 'Anguttara Nikaya', count: 2308, desc: 'พระสูตรจัดตามตัวเลข' },
-            { name: 'ขุททกนิกาย', thai: 'Khuddaka Nikaya', count: 15, desc: 'คัมภีร์เบ็ดเตล็ด (ธัมมปทัฏฐาน, ชาดก, อปทาน, บุรพที่ชื่อ)' }
-          ],
-          abhidharma: [
-            { name: 'ธัมมสังคณะ', desc: 'การจำแนกธรรม 121 อย่าง' },
-            { name: 'วิภังค์', desc: 'การวิเคราะห์ธรรม 18 บท' },
-            { name: 'ธัมมาติกา', desc: 'การจำแนกธรรมตามธาตุ' },
-            { name: 'ปุคคลบูรณะ', desc: 'บุคคล 52 ประเภท' },
-            { name: 'กัตติจุทธานะ', desc: 'ข้อถกเถียงทางธรรม' },
-            { name: 'ยมก', desc: 'คู่มือการศึกษา' },
-            { name: 'ปัญญาปติศาสตร์', desc: 'เหตุผล 24 ประการ' }
-          ],
-          vinaya: [
-            { name: 'ปาจิตบท', count: 227, desc: 'พระวินัย 227 ข้อ' }
-          ]
-        },
-        {
-          id: 2,
-          name: 'ทุติยสังคยานา',
-          year: '300 ก่อนพ.ศ.',
-          location: 'เมืองเวสาลี',
-          participants: 'พระอรหันต์ 700 รูป',
-          description: 'แยกความแตกต่างวินัย 10 ประเด็น (10 ปุญญัติ) รักษาความบริสุทธิ์ของพระธรรมวินัย'
-        },
-        {
-          id: 3,
-          name: 'ตติยสังคยานา',
-          year: '250 ก่อนพ.ศ.',
-          location: 'เมืองปาฏลีบุตร',
-          participants: 'พระอรหันต์ 1,000 รูป',
-          description: 'ท่านมหากัสสปะเป็นประธาน แบ่งพระไตรปิฏกเป็น 3 ปิฏกอย่างชัดเจน',
-          nikayas: [
-            { name: 'ทีฆนิกาย', count: 34, desc: 'สูตรยาว' },
-            { name: 'มัชฌิมนิกาย', count: 152, desc: 'สูตรกลาง' },
-            { name: 'สังยุตตนิกาย', count: 2889, desc: 'พระสูตรจัดหมวด' },
-            { name: 'อังคุตตรนิกาย', count: 2308, desc: 'พระสูตรตัวเลข' },
-            { name: 'ขุททกนิกาย', count: 15, desc: 'คัมภีร์เบ็ดเตล็ด' }
-          ],
-          abhidharma: [
-            { name: 'ธัมมสังคณะ', desc: 'จำแนกธรรม 121' },
-            { name: 'วิภังค์', desc: 'วิเคราะห์ 18 บท' },
-            { name: 'ธัมมาติกา', desc: 'ธาตุ' },
-            { name: 'ปุคคลบูรณะ', desc: '52 ประเภท' },
-            { name: 'กัตติจุทธานะ', desc: 'ถกเถียง' },
-            { name: 'ยมก', desc: 'คู่มือ' },
-            { name: 'ปัญญาปติศาสตร์', desc: '24 เหตุผล' }
-          ]
+    <!-- Legend -->
+    <div class="legend-container">
+        <div class="legend-item"><span class="legend-dot early-dot"></span> ยุคเริ่มแรก / มุขปาฐะ</div>
+        <div class="legend-item"><span class="legend-dot thera-dot"></span> เถรวาท (บาลี)</div>
+        <div class="legend-item"><span class="legend-dot maha-dot"></span> จีน (มหายาน)</div>
+        <div class="legend-item"><span class="legend-dot tibet-dot"></span> ทิเบต (วัชรยาน)</div>
+    </div>
+
+    <!-- Timeline card -->
+    <div class="timeline-card" id="timelineCard">
+        <div class="ruler-container" id="rulerContainer">
+            <div class="ruler-years" id="rulerYears"></div>
+            <span class="bc-label"><i class="fa-regular fa-clock"></i> 600 BCE – 2000 CE</span>
+        </div>
+
+        <div id="timelineRows"></div>
+
+        <div class="info-panel">
+            <h3><i class="fas fa-dharmachakra" style="color:#a75828;"></i> พระคาถาพระอุษณีษะชยาวีชัย</h3>
+            <div class="pill-group">
+                <span class="pill"><i class="fas fa-check"></i> มีในพระไตรปิฎกจีน (Taisho 967,972)</span>
+                <span class="pill"><i class="fas fa-check"></i> มีใน Kangyur ทิเบต (Toh 597)</span>
+                <span class="pill"><i class="fas fa-clock"></i> พุทธศตวรรษที่ 7 (≈ พ.ศ. 700)</span>
+            </div>
+            <p style="margin: 0.8rem 0 0; font-size: 1rem;">เกิดขึ้นช่วงสังคายนามหายาน ณ แคว้นกัษมีระ รับรองพระสูตรมหายานและธารณี ปรากฏในฉบับแปลจีนยุคแรกและทิเบต แต่ไม่มีในพระไตรปิฎกบาลีเถรวาท</p>
+        </div>
+
+        <div class="event-table-note" id="eventGrid"></div>
+
+        <div class="footer-meta">
+            <span><i class="fas fa-code-branch"></i> ข้อมูลครบถ้วนตามตาราง Timeline ที่ให้ไว้</span>
+            <span><i class="fas fa-mouse-pointer"></i> ชี้ที่แถบสีเพื่อดูรายละเอียด</span>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function() {
+        const events = [
+            { id: 1, name: 'พุทธกาล', desc: 'พระพุทธเจ้าทรงแสดงธรรม 623-543 ปีก่อน ค.ศ. · ถือกำเนิดคำสอน สืบทอดแบบมุขปาฐะ', year: -580, category: 'early', offset: 0.8, width: 3.2 },
+            { id: 2, name: 'ปฐมสังคายนา', desc: 'พระมหากัสสปะเป็นประธาน ณ ถ้ำสัตตบรรณคูหา เมืองราชคฤห์ พ.ศ. 1 (≈ 543 BCE)', year: -543, category: 'early', offset: 2.2, width: 2.5 },
+            { id: 3, name: 'ทุติยสังคายนา', desc: 'ณ เมืองไพสาลี แก้ไขวัตถุ 10 ประการ พ.ศ. 100 (≈ 443 BCE)', year: -443, category: 'early', offset: 4.5, width: 2.5 },
+            { id: 4, name: 'ตติยสังคายนา', desc: 'พระเจ้าอโศกมหาราชอุปถัมภ์ ณ เมืองปาฏลีบุตร พ.ศ. 235 (≈ 308 BCE)', year: -308, category: 'early', offset: 7.2, width: 2.8 },
+            { id: 5, name: 'จารึกใบลานครั้งแรก', desc: 'จารึกพระธรรมวินัยบนใบลาน ณ ถ้ำอลูกคาราม ศรีลังกา พ.ศ. 500 (≈ 43 BCE)', year: -43, category: 'thera', offset: 10.8, width: 3.5 },
+            { id: 6, name: 'สมาคมบาลีปกรณ์', desc: 'ตั้ง Pali Text Society โดย T.W. Rhys Davids เพื่อชำระและพิมพ์พระไตรปิฎกบาลีอักษรโรมัน พ.ศ. 2436 (ค.ศ. 1893)', year: 1893, category: 'thera', offset: 70.0, width: 3.2 },
+            { id: 7, name: 'สังคายนาครั้งที่ 6', desc: 'ณ กรุงย่างกุ้ง ประเทศพม่า พ.ศ. 2497-2499 ชำระพระไตรปิฎกบาลีสมัยใหม่', year: 1955, category: 'thera', offset: 74.5, width: 3.0 },
+            { id: 8, name: 'เริ่มแปลพระสูตรเป็นจีน', desc: 'พุทธศตวรรษที่ 6-7 (ค.ศ. 1-2) แปลจากสันสกฤตและบาลี', year: 100, category: 'maha', offset: 17.2, width: 5.0 },
+            { id: 9, name: 'สังคายนาแคว้นกัษมีระ', desc: 'ภายใต้พระเจ้ากนิษกะ รับรองพระสูตรมหายาน พ.ศ. 700 (ค.ศ. 157)', year: 157, category: 'maha', offset: 20.8, width: 2.8 },
+            { id: 10, name: 'พิมพ์ไคเป่า (Kaibao)', desc: 'พระไตรปิฎกฉบับพิมพ์ครั้งแรกของโลก พ.ศ. 1650 (ค.ศ. 1107)', year: 1107, category: 'maha', offset: 48.5, width: 3.0 },
+            { id: 11, name: 'ฉบับไทโช (Taishō)', desc: 'รวบรวมและจัดพิมพ์พระไตรปิฎกไทโช ฉบับมาตรฐานอ้างอิงทั่วโลก พ.ศ. 2467-2477', year: 1930, category: 'maha', offset: 71.2, width: 3.0 },
+            { id: 12, name: 'เริ่มแปลธรรมเป็นทิเบต', desc: 'เริ่มการแปลพระธรรมเป็นภาษาทิเบต ภายใต้กษัตริย์ทิเบต พ.ศ. 1100 (ค.ศ. 557)', year: 557, category: 'tibet', offset: 35.0, width: 3.2 },
+            { id: 13, name: 'บัญชีคัมภีร์ ldan dkar ma', desc: 'จัดทำบัญชีคัมภีร์ฉบับแรก พ.ศ. 1300 (ค.ศ. 757)', year: 757, category: 'tibet', offset: 41.0, width: 2.8 },
+            { id: 14, name: 'พระบุตันรวบรวม Kangyur/Tengyur', desc: 'พระบุตัน รินเชน ดรูบ รวบรวมและจัดระบบ กำหนดหมวดหมู่ Kangyur และ Tengyur พ.ศ. 1900 (ค.ศ. 1357)', year: 1357, category: 'tibet', offset: 57.2, width: 3.5 }
+        ];
+
+        function renderRuler() {
+            const rulerYears = document.getElementById('rulerYears');
+            rulerYears.innerHTML = '';
+            const ticks = ['-600', '-500', '0', '500', '1000', '1500', '2000'];
+            ticks.forEach(label => {
+                const tick = document.createElement('div');
+                tick.className = 'year-tick';
+                tick.setAttribute('data-label', label === '-600' ? '600 BCE' : (label === '-500' ? '500 BCE' : (label[0] === '-' ? label.slice(1)+' BCE' : 'ค.ศ.'+label)));
+                rulerYears.appendChild(tick);
+            });
         }
-      ],
-      pitakas: [
-        { id: 'vinaya', name: 'วินัยปิฏก', icon: '⚖️', desc: 'กฎเกณฑ์สำหรับพระภิกษุสงฆ์' },
-        { id: 'suttanta', name: 'สุตตันตปิฏก', icon: '📖', desc: 'พระธรรมเทศนา คำสอนของพระพุทธเจ้า' },
-        { id: 'abhidharma', name: 'อภิธรรมปิฏก', icon: '🧠', desc: 'คำสอนเชิงปรัชญาและวิภาษวิธี' }
-      ]
-    };
 
-    let currentView = 'home';
+        function renderTimelineRows() {
+            const container = document.getElementById('timelineRows');
+            container.innerHTML = '';
+            const categories = [
+                { key: 'early', label: 'ยุคเริ่มแรก', icon: 'fa-om', class: 'early-marker' },
+                { key: 'thera', label: 'เถรวาท', icon: 'fa-leaf', class: 'thera-marker' },
+                { key: 'maha', label: 'จีน (มหายาน)', icon: 'fa-dragon', class: 'maha-marker' },
+                { key: 'tibet', label: 'ทิเบต', icon: 'fa-snowflake', class: 'tibet-marker' }
+            ];
+            categories.forEach(cat => {
+                const row = document.createElement('div');
+                row.className = 'event-row';
+                const labelDiv = document.createElement('div');
+                labelDiv.className = 'row-label';
+                labelDiv.innerHTML = `<i class="fas ${cat.icon}"></i> ${cat.label}`;
+                row.appendChild(labelDiv);
+                const track = document.createElement('div');
+                track.className = 'track';
+                const catEvents = events.filter(e => e.category === cat.key);
+                catEvents.forEach(ev => {
+                    const marker = document.createElement('div');
+                    marker.className = `event-marker ${cat.class}`;
+                    marker.style.left = ev.offset + '%';
+                    marker.style.width = ev.width + '%';
+                    const tooltip = document.createElement('span');
+                    tooltip.className = 'tooltip';
+                    tooltip.innerHTML = `<i class="fas fa-info-circle"></i> ${ev.name} · ${ev.desc}`;
+                    marker.appendChild(tooltip);
+                    track.appendChild(marker);
+                });
+                row.appendChild(track);
+                container.appendChild(row);
+            });
+        }
 
-    function render() {
-      const content = document.getElementById('content');
-      const breadcrumb = document.getElementById('breadcrumb');
-      
-      if (currentView === 'home') {
-        breadcrumb.classList.add('hidden');
-        content.innerHTML = renderHome();
-      } else if (currentView === 'council') {
-        breadcrumb.classList.remove('hidden');
-        document.getElementById('breadcrumb-text').innerHTML = ' > สังคยานา';
-        content.innerHTML = renderCouncilList();
-      } else if (currentView === 'pitaka') {
-        breadcrumb.classList.remove('hidden');
-        document.getElementById('breadcrumb-text').innerHTML = ' > <span onclick="showCouncil()">สังคยานา</span> > ปิฏก';
-        content.innerHTML = renderPitakaList();
-      } else if (currentView === 'detail') {
-        breadcrumb.classList.remove('breadcrumb-text');
-        content.innerHTML = renderDetail();
-      }
-    }
+        function renderEventGrid() {
+            const grid = document.getElementById('eventGrid');
+            grid.innerHTML = '';
+            events.sort((a,b) => a.year - b.year).forEach(ev => {
+                const card = document.createElement('div');
+                card.className = 'event-card-mini';
+                if (ev.category === 'early') card.style.borderLeftColor = '#8b6c4d';
+                else if (ev.category === 'thera') card.style.borderLeftColor = '#2f6b5e';
+                else if (ev.category === 'maha') card.style.borderLeftColor = '#b35d3a';
+                else if (ev.category === 'tibet') card.style.borderLeftColor = '#3f6a9c';
+                card.innerHTML = `<strong><i class="fas fa-star" style="opacity:0.6;"></i> ${ev.name}</strong> · ${ev.desc}`;
+                grid.appendChild(card);
+            });
+        }
 
-    function renderHome() {
-      return `
-        <div class="card" onclick="showCouncil()">
-          <div class="card-header">
-            <h3>📜 สังคยานา 3 ครั้ง</h3>
-            <span class="count">3</span>
-          </div>
-          <p>การรวบรวมพระไตรปิฏก 3 ครั้งตลอด 150 ปี</p>
-        </div>
-        <div class="card" onclick="showPitaka()">
-          <div class="card-header">
-            <h3>🏛️ พระไตรปิฏก 3 ปิฏก</h3>
-            <span class="count">3</span>
-          </div>
-          <p>วินัย สุตตันต์ และอภิธรรม</p>
-        </div>
-        <div class="card" onclick="window.location.href='timeline.html'">
-          <div class="card-header">
-            <h3>📘 Timeline พระไตรปิฎกสามสาย</h3>
-            <span class="count">14</span>
-          </div>
-          <p>เถรวาท มหายาน วัชรยาน · 2,600 ปี 14 เหตุการณ์สำคัญ</p>
-        </div>
-      `;
-    }
+        renderRuler();
+        renderTimelineRows();
+        renderEventGrid();
+    })();
 
-    function renderCouncilList() {
-      return data.councils.map(c => `
-        <div class="card" onclick="showCouncilDetail(${c.id})">
-          <div class="card-header">
-            <h3>${c.id}. ${c.name}</h3>
-            <span class="count">${c.year}</span>
-          </div>
-          <p>📍 ${c.location}</p>
-          <p>👤 ${c.participants}</p>
-          ${c.description ? `<p>${c.description}</p>` : ''}
-          ${c.nikayas ? `<p class="count" style="display:inline-block;margin-top:8px;">สุตตันต์ 5 นิกาย</p>` : ''}
-          ${c.abhidharma ? `<p class="count" style="display:inline-block;margin-top:8px;margin-left:8px;">อภิธรรม 7 คัมภีร์</p>` : ''}
-        </div>
-      `).join('');
-    }
-
-    function renderPitakaList() {
-      return data.pitakas.map(p => `
-        <div class="card" onclick="alert('ดูรายละเอียด ${p.name}')">
-          <div class="card-header">
-            <h3>${p.icon} ${p.name}</h3>
-          </div>
-          <p>${p.desc}</p>
-        </div>
-      `).join('');
-    }
-
-    function showCouncil() {
-      currentView = 'council';
-      render();
-    }
-
-    function showPitaka() {
-      currentView = 'pitaka';
-      render();
-    }
-
-    function showCouncilDetail(id) {
-      const council = data.councils.find(c => c.id === id);
-      const breadcrumb = document.getElementById('breadcrumb');
-      breadcrumb.classList.remove('hidden');
-      document.getElementById('breadcrumb-text').innerHTML = ' > <span onclick="showCouncil()">สังคยานา</span> > ' + council.name;
-      
-      let html = `
-        <div class="back-btn" onclick="showCouncil()">← กลับ</div>
-        <div class="card">
-          <h2>${council.name}</h2>
-          <p><strong>ปี:</strong> ${council.year}</p>
-          <p><strong>สถาน:</strong> ${council.location}</p>
-          <p><strong>ผู้ร่วม:</strong> ${council.participants}</p>
-          ${council.description ? `<p>${council.description}</p>` : ''}
-        </div>
-      `;
-      
-      if (council.nikayas) {
-        html += `
-          <h3 style="color:#92400e;margin:20px 0 10px;">📖 สุตตันตปิฏก - นิกาย</h3>
-          ${council.nikayas.map(n => `
-            <div class="card">
-              <div class="card-header">
-                <h3>${n.name}</h3>
-                <span class="count">${n.count} สูตร</span>
-              </div>
-              <p>${n.thai || ''}</p>
-              <p>${n.desc}</p>
-            </div>
-          `).join('')}
-        `;
-      }
-      
-      if (council.abhidharma) {
-        html += `
-          <h3 style="color:#92400e;margin:20px 0 10px;">🧠 อภิธรรมปิฏก</h3>
-          ${council.abhidharma.map(a => `
-            <div class="card">
-              <h3>${a.name}</h3>
-              <p>${a.desc}</p>
-            </div>
-          `).join('')}
-        `;
-      }
-      
-      if (council.vinaya) {
-        html += `
-          <h3 style="color:#92400e;margin:20px 0 10px;">⚖️ วินัยปิฏก</h3>
-          ${council.vinaya.map(v => `
-            <div class="card">
-              <div class="card-header">
-                <h3>${v.name}</h3>
-                <span class="count">${v.count} ข้อ</span>
-              </div>
-              <p>${v.desc}</p>
-            </div>
-          `).join('')}
-        `;
-      }
-      
-      document.getElementById('content').innerHTML = html;
-    }
-
-    function goHome() {
-      currentView = 'home';
-      render();
-    }
-
-    render();
-    
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('sw.js');
+        navigator.serviceWorker.register('sw.js');
     }
-  </script>
+</script>
 </body>
 </html>
