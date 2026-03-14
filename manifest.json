@@ -2,7 +2,7 @@
   "name": "พระไตรปิฏก - Tripitaka",
   "short_name": "Tripitaka",
   "description": "สังคยานา และพระสูตร",
-  "start_url": "/",
+  "start_url": "/tripitaka-pwa/",
   "display": "standalone",
   "background_color": "#fef3c7",
   "theme_color": "#f59e0b",
